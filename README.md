@@ -75,14 +75,19 @@ The design was synthesized and simulated using Xilinx Vivado. Custom assembly pr
 **Test Case: Multiplication via Repeated Addition & I/O Handling**
 A custom software routine was written to calculate `2 x 3 = 6` using a `do-while` loop utilizing the `SUB` and `JNOZERO` instructions. A secondary hardware multiplication test successfully calculated `din * 10 = dout`.
 
-![Simulation Waveform](img/image_5218a0.png)
-*Waveform showing multi-cycle execution: the processor successfully outputs `0006` (hex) for the repeated addition, reads external input `din` (`000C`), and outputs the hardware multiplication result `0078`.*
+### Top-Level I/O Execution
+![Top Level Signals](img/Top%20Level%20Signals.png)
+*The top-level waveform demonstrates multi-cycle execution. The system reads the external input `din` (000c) and correctly outputs the software-calculated result (0006) followed by the hardware-calculated result (0078) to the `dout` bus.*
+
+### Internal Datapath & Register State
+![Internal Registers](img/Internal%20Registers.png)
+*A deep dive into the internal hardware state during execution. The General Purpose Registers (e.g., R8 functioning as a decrementing loop counter, R9 accumulating the result) update sequentially. The Data Memory (`data_mem`) correctly bridges the internal datapath with the external I/O ports.*
 
 ---
 
 ## Repository Structure
 
-*   `src/`: Contains the Verilog source code (`top.v`).
+*   `src/`: Contains the Verilog source code and Testbench files (`top.v`, `test_bench.v`).
 *   `mem/`: Contains the `.mem` files used for initializing the instruction block RAM.
 *   `img/`: Contains architecture diagrams and Vivado simulation waveforms.
 
